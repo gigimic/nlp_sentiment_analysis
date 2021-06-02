@@ -54,3 +54,38 @@ model.add(LSTM(100))
 model.add(Dense(1, activation='sigmoid'))
 
 print(model.summary())
+
+# Compile model, specifying a loss function, optimizer, and metrics
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+# Once compiled, start the training process. There are two important 
+# training parameters - batch size and number of training epochs, 
+# which together with model architecture determine the total training time.
+
+# Specify training parameters: batch size and number of epochs
+batch_size = 64
+num_epochs = 3
+
+# (optional): Reserve/specify some training data for validation (not to be used for training)
+X_valid, y_valid = X_train[:batch_size], y_train[:batch_size]  # first batch_size samples
+X_train2, y_train2 = X_train[batch_size:], y_train[batch_size:]  # rest for training
+
+# Train the model
+model.fit(X_train2, y_train2,
+          validation_data=(X_valid, y_valid),
+          batch_size=batch_size, epochs=num_epochs)
+
+import os 
+# Save the model, so that we can quickly load it in future (and perhaps resume training)
+model_file = "rnn_model.h5"  # HDF5 file
+model.save(os.path.join(temp_dir, model_file))
+
+# Later it can be loaded using keras.models.load_model()
+#from keras.models import load_model
+#model = load_model(os.path.join(temp_dir, model_file))
+
+# After training the model, check to see how well it performs on unseen test data.
+
+# Evaluate the model on the test set
+scores = model.evaluate(X_test, y_test, verbose=0)  # returns loss and other metrics specified in model.compile()
+print("Test accuracy:", scores[1])  # scores[1] should correspond to accuracy if you passed in metrics=['accuracy']

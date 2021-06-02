@@ -14,3 +14,10 @@ In order to feed this data into the RNN, all input documents must have the same 
 This can be done by using the pad_sequences() function in Keras. Here set max_words to 500.
 
 Input is a sequence of words (integer word IDs) of maximum length = max_words, and output is a binary sentiment label (0 or 1).
+
+Now we can train the model. In Keras world, we need to compile the model by specifying the loss function and optimizer , as well as any evaluation metrics. Specify the approprate parameters, including at least one metric 'accuracy'.
+
+Once compiled, start the training process. There are two important 
+ training parameters - batch size and number of training epochs, 
+ which together with model architecture determine the total training time.
+It may take a few hours on a cpu.
