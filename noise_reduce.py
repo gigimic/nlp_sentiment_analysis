@@ -19,10 +19,10 @@ print("--- Review (with words) ---")
 print(' '.join([id2word.get(i, " ") for i in X_train[0]]))
 print("--- Label ---  ", y_train[0])
 
-
+nn = 13000
 reviews1=[]
 # The number of reviews is 25000. so the loop is limited to 500
-for ind in range(500):
+for ind in range(nn):
     entry=X_train[ind]
     reviews1.append(' '.join([id2word.get(i, " ") for i in entry]))
 print('total reviews1  ', len(reviews1))
@@ -49,7 +49,7 @@ reviews2=[]
 #     reviews2.append(" ".join([reverse_index.get(i, "#") for i in entry]))
 
 
-for ind in range(500):
+for ind in range(nn):
     entry=data[ind]
     reviews2.append(" ".join([reverse_index.get(i, "#") for i in entry]))
 print('total reviews2  ', len(reviews1))
@@ -57,8 +57,42 @@ print('total reviews2  ', len(reviews1))
 print('reviews1 :', reviews1[9],'\n target is...  ', y_train[9],'\n')
 print('reviews2 :', reviews2[10],'\n target is...  ', y_train[10])
 
-for i in range(305,325):
-    pretty_print_review(i)
-    # pretty_print_review(105)
-    # pretty_print_review(108)
-    # pretty_print_review(201)
+# for i in range(305,325):
+#     pretty_print_review(i)
+
+from collections import Counter
+pos_counts= Counter()
+neg_counts= Counter()
+total_counts= Counter()
+
+for i in range(nn):
+    if(y_train[i] == 0):
+        for word in reviews1[i].split(' '):
+            pos_counts[word] +=1
+            total_counts[word] +=1
+    else:
+        for word in reviews1[i].split(' '):
+            neg_counts[word] +=1
+            total_counts[word] +=1
+
+
+print(pos_counts.most_common()[:100])
+
+pos_neg_ratios =Counter()
+
+for term, cnt in list(total_counts.most_common()):
+    if(cnt > 10):
+        pos_neg_ratio = pos_counts[term]/float(neg_counts[term]+1)
+        pos_neg_ratios[term] =pos_neg_ratio
+
+for word, ratio in pos_neg_ratios.most_common():
+    if(ratio > 1):
+        pos_neg_ratios[word] = np.log(ratio)
+    else:
+        pos_neg_ratios[word] = -np.log((1 / (ratio+0.01)))
+
+for i in range(50):
+    print(pos_neg_ratios.most_common()[i])
+
+
+print(list(reversed(pos_neg_ratios.most_common()))[0:30])
