@@ -19,20 +19,15 @@ print("--- Review (with words) ---")
 print(' '.join([id2word.get(i, " ") for i in X_train[0]]))
 print("--- Label ---  ", y_train[0])
 
-nn = 13000
+nn = 19000
 reviews1=[]
-# The number of reviews is 25000. so the loop is limited to 500
+# The number of reviews is 25000. so the loop is limited to nn
 for ind in range(nn):
     entry=X_train[ind]
     reviews1.append(' '.join([id2word.get(i, " ") for i in entry]))
 print('total reviews1  ', len(reviews1))
 
-print('id 2 word for 1 : ', id2word.get(y_train[10]))
-print('id 2 word for 1 : ', id2word.get(1))
-
-
-print('id 2 word for 0 : ', id2word.get(0))
-
+print('id 2 word for y_train(target) : ', id2word.get(y_train[2]))
 
 # This is method - 2 of reading reviews
 
@@ -54,8 +49,8 @@ for ind in range(nn):
     reviews2.append(" ".join([reverse_index.get(i, "#") for i in entry]))
 print('total reviews2  ', len(reviews1))
 
-print('reviews1 :', reviews1[9],'\n target is...  ', y_train[9],'\n')
-print('reviews2 :', reviews2[10],'\n target is...  ', y_train[10])
+# print('reviews1 :', reviews1[9],'\n target is...  ', y_train[9],'\n')
+# print('reviews2 :', reviews2[10],'\n target is...  ', y_train[10])
 
 # for i in range(305,325):
 #     pretty_print_review(i)
@@ -76,12 +71,12 @@ for i in range(nn):
             total_counts[word] +=1
 
 
-print(pos_counts.most_common()[:100])
+# print(pos_counts.most_common()[:100])
 
 pos_neg_ratios =Counter()
 
 for term, cnt in list(total_counts.most_common()):
-    if(cnt > 10):
+    if(cnt > 50):
         pos_neg_ratio = pos_counts[term]/float(neg_counts[term]+1)
         pos_neg_ratios[term] =pos_neg_ratio
 
