@@ -89,5 +89,15 @@ for word, ratio in pos_neg_ratios.most_common():
 for i in range(50):
     print(pos_neg_ratios.most_common()[i])
 
-
 print(list(reversed(pos_neg_ratios.most_common()))[0:30])
+
+
+vocab = set(total_counts.keys())
+vocab_size = len(vocab)
+print('... vocab size ... ', vocab_size)
+
+word2index = {}
+for i, word in enumerate(vocab):
+    word2index[word] = i 
+
+print(word2index)
