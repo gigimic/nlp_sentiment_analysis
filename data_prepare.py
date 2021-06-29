@@ -108,22 +108,14 @@ for word, ratio in pos_neg_ratios.most_common():
 
 print(pos_neg_ratios.most_common(50))
 print(list(reversed(pos_neg_ratios.most_common()))[0:30])
-
-# words_index={}
-# words_count =Counter()
-# for i, word in enumerate(vocab_total):
-#     words_index[word] = i
-#     words_count[word] += 1
-
-words_index={}
-for i, word in vocab_total.items():
-    if(words_index[word]):
-        continue
-    else:
-        words_index[word] = i
     
-print(vocab_total['shrek'])
-for i, word in words_index.items():
-    print(words_index[i], i, word)
-    if (i<10):
-        break
+word2index={}
+num_words=1
+for word, i in vocab_total.items():
+    if word not in word2index:
+        word2index[word]=num_words
+        num_words += 1
+        if (num_words < 20):
+            print(word, word2index[word])
+
+print(len(word2index))
