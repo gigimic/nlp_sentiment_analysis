@@ -10,7 +10,6 @@ from utils_prog import load_doc
 dir_pos = '/home/gigi/udacityNLP/projects/data_imdb/txt_sentoken/pos/'
 dir_neg = '/home/gigi/udacityNLP/projects/data_imdb/txt_sentoken/neg/'
 
-
 vocab_total = Counter()
 
 review_pos = []
@@ -21,7 +20,6 @@ for files in listdir(dir_pos):
     if files.endswith("txt"):
         # read the review
         filename = dir_pos + files 
-        # print(filename)
         text = load_doc(filename)
         # clean the text
         review = clean_text_for_comparison(text)
@@ -34,23 +32,19 @@ for files in listdir(dir_pos):
         labels_pos.append('positive')
         
 
-print('number of reviews : ',len(review_pos))
-# print(review_pos[3])
-# print(labels_pos[3])
+print('number of positive reviews : ',len(review_pos))
 print('no of words : ', len(vocab_pos))
-print(vocab_pos[3])
-print('most common : ', pos_words_count.most_common(50))
+print('most common words in positive reviews : ', pos_words_count.most_common(20))
 
 review_neg = []
 labels_neg = []
 vocab_neg = []
-
 neg_words_count = Counter()
+
 for files in listdir(dir_neg):
     if files.endswith("txt"):
         # read the review
         filename=dir_neg + files 
-        # print(filename)
         text = load_doc(filename)
         # clean the text
         review = clean_text_for_comparison(text)
@@ -62,37 +56,33 @@ for files in listdir(dir_neg):
         review_neg.append(review)
         labels_neg.append('negative')
         
-print('number of neg reviews : ',len(review_neg))
-# print(review_neg[3])
-# print(labels_neg[3])
+print('number of negative reviews : ',len(review_neg))
 print('no of words in neg reviews : ', len(vocab_neg))
-print(vocab_neg[3])
-print('most common negative : ', neg_words_count.most_common(50))
+print('most common words in negative reviews : ', neg_words_count.most_common(20))
 
-print('most common total : ', vocab_total.most_common(50))
-
-import numpy as np 
-# generate 5 random integers between 0 and 100
-x = np.random.randint(low = 40, high=100, size = (5))
-print(x)
+# print('most common total : ', vocab_total.most_common(50))
 
 reviews_all = []
 labels_all =[]
+# mixing the negative and positive reviews
 for i in range(len(review_neg)):
     reviews_all.append(review_neg[i])
     labels_all.append(labels_neg[i])
     reviews_all.append(review_pos[i])
     labels_all.append(labels_pos[i]) 
 
-# print('review..', reviews_all[10])
-# print('label.. ', labels_all[10])
-print('no of reviews... labels... ', len(reviews_all), len(labels_all))
+print('total no of reviews... labels... ', len(reviews_all), len(labels_all))
 
 def pretty_print_review(i):
     print(labels_all[i], ' .. : ', reviews_all[i][:100])
 
 # for i in range(305,325):
 #     pretty_print_review(i)
+
+# as there are many words common in both positive and negative reviews 
+# we use a method to find the positive to negative ratio
+
+import numpy as np
 
 pos_neg_ratios = Counter()
 for term, cnt in list(vocab_total.most_common()):
@@ -106,16 +96,22 @@ for word, ratio in pos_neg_ratios.most_common():
     else:
         pos_neg_ratios[word] = -np.log(1/(ratio+0.01))
 
-print(pos_neg_ratios.most_common(50))
-print(list(reversed(pos_neg_ratios.most_common()))[0:30])
-    
+print('words with higher pos/neg ratio........ ')
+print(pos_neg_ratios.most_common(20))
+print('words with higher neg/pos ratio........ ')
+print(list(reversed(pos_neg_ratios.most_common()))[0:20])
+
+# generating word to index and index to word    
 word2index={}
+index2word = {}
 num_words=1
 for word, i in vocab_total.items():
     if word not in word2index:
         word2index[word]=num_words
+        index2word[num_words] = word
         num_words += 1
-        if (num_words < 20):
-            print(word, word2index[word])
 
 print(len(word2index))
+print(index2word[15])
+print(word2index['viewed'])
+print(word2index['awful'])
