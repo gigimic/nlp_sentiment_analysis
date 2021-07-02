@@ -115,3 +115,6 @@ print(len(word2index))
 print(index2word[15])
 print(word2index['viewed'])
 print(word2index['awful'])
+
+# input data for analysis - first layer
+layer_0 = np.zeros((1, len(word2index)))
