@@ -111,10 +111,10 @@ for word, i in vocab_total.items():
         index2word[num_words] = word
         num_words += 1
 
-print(len(word2index))
-print(index2word[15])
-print(word2index['viewed'])
-print(word2index['awful'])
+# print(len(word2index))
+# print(index2word[15])
+# print(word2index['viewed'])
+# print(word2index['awful'])
 
 # input data for analysis - first layer
 layer_0 = np.zeros((1, len(word2index)))
