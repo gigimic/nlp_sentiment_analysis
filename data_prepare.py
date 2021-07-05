@@ -118,3 +118,17 @@ for word, i in vocab_total.items():
 
 # input data for analysis - first layer
 layer_0 = np.zeros((1, len(word2index)))
+
+def update_input_layer (review):
+    global layer_0
+    layer_0 *= 0
+    for word in review.split(" "):
+        layer_0[0][word2index[word]] += 1
+
+update_input_layer(reviews_all[0])
+print(len(layer_0[0]))
+# print([layer_0[0][i] for i in layer_0[0][i]>0])
+print(np.max(layer_0[0]))
+print(np.argmax(layer_0[0]))
+nn1 = np.argmax(layer_0[0])
+print(index2word[nn1])
