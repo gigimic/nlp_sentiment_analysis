@@ -125,6 +125,7 @@ def update_input_layer (review):
     for word in review.split(" "):
         layer_0[0][word2index[word]] += 1
 
+# generating layers ...
 update_input_layer(reviews_all[0])
 print(len(layer_0[0]))
 # print([layer_0[0][i] for i in layer_0[0][i]>0])
