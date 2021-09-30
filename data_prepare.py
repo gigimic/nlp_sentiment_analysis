@@ -4,8 +4,8 @@ from collections import Counter
 from utils_prog import clean_text_for_comparison
 from utils_prog import load_doc
 
-# data from
-# https://machinelearningmastery.com/prepare-movie-review-data-sentiment-analysis/
+# dir_pos = '...../data_imdb/txt_sentoken/pos/'
+# dir_neg = '...../data_imdb/txt_sentoken/neg/'
 
 dir_pos = '/home/gigi/udacityNLP/projects/data_imdb/txt_sentoken/pos/'
 dir_neg = '/home/gigi/udacityNLP/projects/data_imdb/txt_sentoken/neg/'

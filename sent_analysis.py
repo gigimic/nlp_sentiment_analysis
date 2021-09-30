@@ -60,7 +60,6 @@ model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']
 
 # Once compiled, start the training process. There are two important 
 # training parameters - batch size and number of training epochs, 
-# which together with model architecture determine the total training time.
 
 # Specify training parameters: batch size and number of epochs
 batch_size = 64
