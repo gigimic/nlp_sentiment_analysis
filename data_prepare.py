@@ -7,8 +7,8 @@ from utils_prog import load_doc
 # dir_pos = '...../data_imdb/txt_sentoken/pos/'
 # dir_neg = '...../data_imdb/txt_sentoken/neg/'
 
-dir_pos = '/home/gigi/udacityNLP/projects/data_imdb/txt_sentoken/pos/'
-dir_neg = '/home/gigi/udacityNLP/projects/data_imdb/txt_sentoken/neg/'
+dir_pos = '/home/.../'
+dir_neg = '/home/.../'
 
 vocab_total = Counter()
 
